@@ -20,7 +20,7 @@ namespace RecipeAPI.Models
 
         [ForeignKey("FK_Recipe_Step")]
         public int RecipeID { get; set; }
-         public Step()
+        public Step()
         {
             Instructions = new List<Instruction>();
         }

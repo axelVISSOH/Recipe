@@ -13,17 +13,20 @@ namespace RecipeAPI.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        [Required]
+        public string ImagePath { get; set; }
         public bool IsPublic { get; set; }
-        public ICollection<Step> Steps { get; set; }
+       
+        public ICollection<Comment> Comments { get; set; }
         public ICollection<Ingredient> Ingredients { get; set; }
-
+        public ICollection<Step> Steps { get; set; }
+      
         [ForeignKey("FK_User_Recipe")]
         public int UserID { get; set; }
         public Recipe()
         {
-            Steps = new List<Step>();
+            Comments = new List<Comment>();
             Ingredients = new List<Ingredient>();
+            Steps = new List<Step>();
         }
     }
 }

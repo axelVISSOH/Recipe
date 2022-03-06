@@ -12,47 +12,47 @@ namespace RecipeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RecipesController : ControllerBase
+    public class AdminsController : ControllerBase
     {
         private readonly RecipeAPIContext _context;
 
-        public RecipesController(RecipeAPIContext context)
+        public AdminsController(RecipeAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Recipes
+        // GET: api/Admins
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipe()
+        public async Task<ActionResult<IEnumerable<Admin>>> GetAdmin()
         {
-            return await _context.Recipe.ToListAsync();
+            return await _context.Admin.ToListAsync();
         }
 
-        // GET: api/Recipes/5
+        // GET: api/Admins/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Recipe>> GetRecipe(int id)
+        public async Task<ActionResult<Admin>> GetAdmin(int id)
         {
-            var recipe = await _context.Recipe.FindAsync(id);
+            var admin = await _context.Admin.FindAsync(id);
 
-            if (recipe == null)
+            if (admin == null)
             {
                 return NotFound();
             }
 
-            return recipe;
+            return admin;
         }
 
-        // PUT: api/Recipes/5
+        // PUT: api/Admins/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRecipe(int id, Recipe recipe)
+        public async Task<IActionResult> PutAdmin(int id, Admin admin)
         {
-            if (id != recipe.Id)
+            if (id != admin.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(recipe).State = EntityState.Modified;
+            _context.Entry(admin).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace RecipeAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RecipeExists(id))
+                if (!AdminExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace RecipeAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Recipes
+        // POST: api/Admins
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
+        public async Task<ActionResult<Admin>> PostAdmin(Admin admin)
         {
-            _context.Recipe.Add(recipe);
+            _context.Admin.Add(admin);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRecipe", new { id = recipe.Id }, recipe);
+            return CreatedAtAction("GetAdmin", new { id = admin.Id }, admin);
         }
 
-        // DELETE: api/Recipes/5
+        // DELETE: api/Admins/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecipe(int id)
+        public async Task<IActionResult> DeleteAdmin(int id)
         {
-            var recipe = await _context.Recipe.FindAsync(id);
-            if (recipe == null)
+            var admin = await _context.Admin.FindAsync(id);
+            if (admin == null)
             {
                 return NotFound();
             }
 
-            _context.Recipe.Remove(recipe);
+            _context.Admin.Remove(admin);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool RecipeExists(int id)
+        private bool AdminExists(int id)
         {
-            return _context.Recipe.Any(e => e.Id == id);
+            return _context.Admin.Any(e => e.Id == id);
         }
     }
 }

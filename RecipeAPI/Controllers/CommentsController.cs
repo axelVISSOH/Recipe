@@ -12,47 +12,47 @@ namespace RecipeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RecipesController : ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly RecipeAPIContext _context;
 
-        public RecipesController(RecipeAPIContext context)
+        public CommentsController(RecipeAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Recipes
+        // GET: api/Comments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipe()
+        public async Task<ActionResult<IEnumerable<Comment>>> GetComment()
         {
-            return await _context.Recipe.ToListAsync();
+            return await _context.Comment.ToListAsync();
         }
 
-        // GET: api/Recipes/5
+        // GET: api/Comments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Recipe>> GetRecipe(int id)
+        public async Task<ActionResult<Comment>> GetComment(int id)
         {
-            var recipe = await _context.Recipe.FindAsync(id);
+            var comment = await _context.Comment.FindAsync(id);
 
-            if (recipe == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return recipe;
+            return comment;
         }
 
-        // PUT: api/Recipes/5
+        // PUT: api/Comments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRecipe(int id, Recipe recipe)
+        public async Task<IActionResult> PutComment(int id, Comment comment)
         {
-            if (id != recipe.Id)
+            if (id != comment.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(recipe).State = EntityState.Modified;
+            _context.Entry(comment).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace RecipeAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RecipeExists(id))
+                if (!CommentExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace RecipeAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Recipes
+        // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
+        public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-            _context.Recipe.Add(recipe);
+            _context.Comment.Add(comment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRecipe", new { id = recipe.Id }, recipe);
+            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
-        // DELETE: api/Recipes/5
+        // DELETE: api/Comments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecipe(int id)
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            var recipe = await _context.Recipe.FindAsync(id);
-            if (recipe == null)
+            var comment = await _context.Comment.FindAsync(id);
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            _context.Recipe.Remove(recipe);
+            _context.Comment.Remove(comment);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool RecipeExists(int id)
+        private bool CommentExists(int id)
         {
-            return _context.Recipe.Any(e => e.Id == id);
+            return _context.Comment.Any(e => e.Id == id);
         }
     }
 }

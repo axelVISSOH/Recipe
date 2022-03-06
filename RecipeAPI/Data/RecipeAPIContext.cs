@@ -23,5 +23,11 @@ namespace RecipeAPI.Data
         public DbSet<RecipeAPI.Models.Instruction> Instruction { get; set; }
 
         public DbSet<RecipeAPI.Models.Ingredient> Ingredient { get; set; }
+
+        public DbSet<RecipeAPI.Models.Admin> Admin { get; set; }
+
+        public DbSet<RecipeAPI.Models.Comment> Comment { get; set; }
+
+        public DbSet<RecipeAPI.Models.Person> Person { get; set; }
     }
 }

@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace RecipeAPI.Models
 {
-    public class Instruction
+    public class Comment
     {
         public int Id { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string Message { get; set; }
         [Required]
-        public int Position { get; set; }
-        [ForeignKey("FK_Step_Instruction")]
-        public int StepID { get; set; }
+        public bool IsReport { get; set; }
+        public bool IsReportable { get; set; }
+        [ForeignKey("FK_Recipe_Comment")]
+        public int RecipeID { get; set; }
     }
 }
