@@ -25,7 +25,7 @@ namespace RecipeAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Step>>> GetStep()
         {
-            return await _context.Step.ToListAsync();
+            return await _context.Step.Include("Instructions").ToListAsync();
         }
 
         // GET: api/Steps/5

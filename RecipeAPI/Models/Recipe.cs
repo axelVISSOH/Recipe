@@ -16,7 +16,7 @@ namespace RecipeAPI.Models
         public string ImagePath { get; set; }
         public bool IsPublic { get; set; }
        
-        public ICollection<Comment> Comments { get; set; }
+        public  ICollection<Comment> Comments { get; set; }
         public ICollection<Ingredient> Ingredients { get; set; }
         public ICollection<Step> Steps { get; set; }
       

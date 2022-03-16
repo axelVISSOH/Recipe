@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace RecipeAPI.Models
 {
     public class Comment
@@ -17,5 +16,7 @@ namespace RecipeAPI.Models
         public bool IsReportable { get; set; }
         [ForeignKey("FK_Recipe_Comment")]
         public int RecipeID { get; set; }
+        [ForeignKey("FK_User_Comment")]
+        public int UserID { get; set; }
     }
 }
