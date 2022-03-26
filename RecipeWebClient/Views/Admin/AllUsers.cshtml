@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RecipeAPI.Models.User>
+@{
+    ViewData["Title"] = "All Users";
+}
+<div class="container">
+    <div class="mb-3" style="max-width:400px">
+        <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">Légende</li>
+            <li class="list-group-item"><span class="iconify" data-icon="emojione:eye-in-speech-bubble"></span> Voir les recettes de l'utilisateur</li>
+            <li class="list-group-item"><span class="iconify" data-icon="fontisto:trash" style="color: red;"></span> Supprimer l'utilisateur</li>
+            <li class="list-group-item"><span class="iconify" data-icon="la:comments-solid" style="color: green;"></span>Voir les commentaires de l'utilisateur</li>
+        </ul>
+    </div>
+
+    <table class="mb-3 table table-bordered table-dark table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#Id</th>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Nombre de recettes</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id </td>
+                    <td>@user.Pseudo</td>
+                    <td>@user.Recipes.Count</td>
+                    <td>
+                        <a asp-action="" asp-route-id="@user.Id"><span class="iconify" data-icon="emojione:eye-in-speech-bubble"></span></a> |
+                        <a asp-action="DeleteUser" asp-route-id="@user.Id"><span class="iconify" data-icon="fontisto:trash" style="color: red;"></span></a> |
+                        <a asp-action="UserComments" asp-route-id="@user.Id"><span class="iconify" data-icon="la:comments-solid" style="color: green;"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

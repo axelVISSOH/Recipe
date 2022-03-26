@@ -1,0 +1,58 @@
+﻿@using Newtonsoft.Json;
+@using Microsoft.AspNetCore.Http;
+
+@{
+    Person actualConnectedUser;
+    //Person actualConnectedUser = JsonConvert.DeserializeObject<Person>(httpContext.Session.GetString("actualConnectedUser"));
+    try
+    {
+        actualConnectedUser = JsonConvert.DeserializeObject<Person>(Context.Session.GetString("actualConnectedUser"));
+    }
+    catch (Exception)
+    {
+        actualConnectedUser = null;
+    }
+
+}
+
+
+@if (!(@actualConnectedUser == null) && @actualConnectedUser.Status == "user")
+{
+    <partial name="_UserPartial"/>
+}
+@if (!(@actualConnectedUser == null) && @actualConnectedUser.Status == "admin")
+{
+    <partial name="_AdminPartial"/>
+}
+
+<ul class="nav navbar-nav navbar-right">
+
+    @if (!(@actualConnectedUser == null))
+    {
+        <li>
+            Welcome Back: @actualConnectedUser.Mail
+        </li>
+        <li>
+            <a class="nav-link text-dark" asp-controller="Login" asp-action="LogOff">
+                <span class="iconify" data-icon="bx:log-out"></span>
+                LogOff
+            </a>
+        </li>
+
+    }
+    else
+    {
+        <li>
+            <a class="nav-link text-dark" asp-controller="Register" asp-action="Register">
+                <span class="iconify" data-icon="carbon:user-filled"></span>
+                Sign-up
+            </a>
+        </li>
+        <li>
+            <a class="nav-link text-dark" asp-controller="Login" asp-action="Login">
+                <span class="iconify" data-icon="entypo:login"></span>
+                Sign-in
+            </a>
+        </li>
+    }
+</ul>

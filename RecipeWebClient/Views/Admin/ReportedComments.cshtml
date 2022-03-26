@@ -1,0 +1,63 @@
+﻿@using RecipeAPI.Models;
+
+<div>
+    @if (@ViewBag.Message == "ReportedComments")
+    {
+        <p>Ici vous pouvez gérer tous les commentaires reportés.</p>
+        @if (@ViewBag.userPseudos.Count == 0)
+        {
+            <p>Aucun commentaires reportés pour le moment.</p>
+        }
+    }
+    else
+    {
+        <p>Ici vous pouvez gérer tous les commentaires d'un user.</p>
+        @if (@ViewBag.userPseudos.Count == 0)
+        {
+            <p>Aucun commentaires pour ce user.</p>
+        }
+    }
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <div class="mb-3" style="max-width:400px">
+            <ul class="list-group">
+                <li class="list-group-item active" aria-current="true">Légende</li>
+                <li class="list-group-item"><span class="iconify mr-1" data-icon="akar-icons:circle-check" style="color: green;"></span>Valider le commentaire</li>
+                <li class="list-group-item"><span class="iconify mr-1" data-icon="fontisto:trash" style="color: red;"></span> Supprimer le commentaire</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-9" style="overflow-x:scroll">
+        <table class="mb-3 table table-bordered table-dark table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#Id</th>
+                    <th scope="col">Recette</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Commentaire</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < @ViewBag.userPseudos.Count; i++)
+                {
+                <tr>
+                    <td>@ViewBag.reportedComments[i].Id</td>
+                    <td>@ViewBag.reportedRecipes[i].Name</td>
+                    <td><img style="width:150px" src="~/Pictures/RecipesImgPaths/pasta.jpg" alt="image de @ViewBag.reportedRecipes[i].Name" /></td><!-- /*@ViewBag.reportedRecipes[i].ImagePath*/ -->
+                    <td>@ViewBag.userPseudos[i]</td>
+                    <td>@ViewBag.reportedComments[i].Message</td>
+                    <td>
+                        <a asp-action="ValidateComment" asp-route-id="@ViewBag.reportedComments[i].Id"><span class="iconify mr-1" data-icon="akar-icons:circle-check" style="color: green;"></span></a> |
+                        <a asp-action="DeleteComment" asp-route-id="@ViewBag.reportedComments[i].Id"><span class="iconify" data-icon="fontisto:trash" style="color: red;"></span></a>
+
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>        
+    </div>
+</div>

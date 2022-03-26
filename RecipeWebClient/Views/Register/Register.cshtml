@@ -1,0 +1,33 @@
+﻿@model RecipeAPI.Models.User
+@{
+    ViewData["Title"] = "Register";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="container" style="max-width:500px;">
+        <h1 class="text-center">Register</h1>
+        <hr />
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Pseudo" for="pseudo" class="control-label"></label>
+                <input asp-for="Pseudo" type="text" class="form-control" id="pseudo" aria-describedby="emailHelp" />
+                <span asp-validation-for="Pseudo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Mail" for="mail" class="control-label"></label>
+                <input asp-for="Mail" type="email" class="form-control" id="mail" aria-describedby="emailHelp" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Password" for="pass" class="control-label"></label>
+                <input asp-for="Password" type="password" class="form-control" id="pass" aria-describedby="emailHelp" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Register" action="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+}
