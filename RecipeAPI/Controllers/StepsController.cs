@@ -84,6 +84,7 @@ namespace RecipeAPI.Controllers
             return CreatedAtAction("GetStep", new { id = step.Id }, step);
         }
 
+
         // DELETE: api/Steps/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStep(int id)
@@ -92,8 +93,12 @@ namespace RecipeAPI.Controllers
             if (step == null)
             {
                 return NotFound();
-            }
-
+            }           
+         
+                foreach (Instruction i in step.Instructions.ToList())
+                {                  
+                    _context.Entry(i).State = EntityState.Deleted;
+                }
             _context.Step.Remove(step);
             await _context.SaveChangesAsync();
 

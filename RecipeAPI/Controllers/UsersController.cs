@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipeAPI.Data;
 using RecipeAPI.Models;
-
 namespace RecipeAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -15,33 +14,27 @@ namespace RecipeAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly RecipeAPIContext _context;
-
         public UsersController(RecipeAPIContext context)
         {
             _context = context;
         }
-
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.User.ToListAsync();
+            return await _context.User.Include("Recipes").ToListAsync();
         }
-
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.User.FindAsync(id);
-
             if (user == null)
             {
                 return NotFound();
             }
-
             return user;
         }
-
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -51,9 +44,7 @@ namespace RecipeAPI.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(user).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -69,10 +60,8 @@ namespace RecipeAPI.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
-
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -80,10 +69,8 @@ namespace RecipeAPI.Controllers
         {
             _context.User.Add(user);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
-
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -93,13 +80,10 @@ namespace RecipeAPI.Controllers
             {
                 return NotFound();
             }
-
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
-
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.Id == id);
