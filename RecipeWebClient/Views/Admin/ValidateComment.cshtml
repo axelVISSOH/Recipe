@@ -1,0 +1,14 @@
+﻿@model RecipeAPI.Models.Comment
+@{
+    ViewData["Title"] = "Validate Comment";
+}
+<div class="container">
+    Confirmez la validation du commentaire @Model.Message du user @Model.UserID pour la recette @Model.RecipeID.
+    Le commentaire ne pourra plus être reporter sauf s'il est modifier.
+</div>
+
+<form asp-action="ValidateCommentConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Validate" class="btn btn-primary" />
+    <a asp-action="ReportedComments">Back to List</a>
+</form>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<RecipeAPI.Models.Recipe>
+@using Newtonsoft.Json;
+@using Microsoft.AspNetCore.Http;
+@{
+    Person actualConnectedUser = JsonConvert.DeserializeObject<Person>(Context.Session.GetString("actualConnectedUser"));
+
+}
+<div class="container">
+    <div class="row">
+        @for (int i = 0; i < @ViewBag.publicRecipes.Count; i++)
+        {
+            <div class="card" style="width: 18rem;">
+                <a href=""> <img src="/Pictures/Logos/pasta.jpg" class="card-img-top" alt="picture of @ViewBag.publicRecipes[i].Name"> </a>
+
+                <div class="card-body">                    
+                    <hr />
+                    @if (@ViewBag.publicRecipes[i].UserID == actualConnectedUser.Id)
+                    {
+                        <a href="#"> <span class="iconify" data-icon="uiw:reload" style="color: blue;"></span></a>
+                        <h5 class="card-title">@ViewBag.publicRecipes[i].Name</h5>
+                        <a href="#"> <span class="iconify" data-icon="fontisto:trash" style="color: red;"></span></a>
+                    }
+                    else
+                    {
+                        <p>Created by @ViewBag.associatedUsers[i].Pseudo</p>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

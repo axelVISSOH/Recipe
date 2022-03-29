@@ -1,0 +1,14 @@
+﻿@model RecipeAPI.Models.User
+@{
+    ViewData["Title"] = "Delete User";
+}
+<div class="container">
+
+    Confirmez la suppresion de l'utilisateur @Model.Pseudo.
+</div>
+
+<form asp-action="DeleteUserConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="AllUsers">Back to List of Users</a>
+</form>
